@@ -24,7 +24,7 @@ class KnowledgeSource
     raise "can't call method on abstract class"
   end
 
-  def update_blackboard
+  def update(blackboard)
     raise "can't call method on abstract class"
   end
 
