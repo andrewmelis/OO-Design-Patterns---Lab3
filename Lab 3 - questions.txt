@@ -1,0 +1,34 @@
+Part 1
+
+1. On my blackboard, the puzzle pieces are the steps that go into making a recommendation. The completed puzzle is a completed song recommendation, so a puzzle piece could be viewed as an update to the blackboard.
+
+2. Because I've implemented a controller (see question 3), adding a knowledge source is as simple as subclassing the KnowledgeSource "abstract" class, implementing it properly, and instantiating it in the runner. The controller takes it from there.
+
+3. The controller works by implementing a continual loop over all the knowledge sources, calling exec_condition, and, if the the KS has something to add, calling exec_action. This greedy call on exec_action is an implementation of priority -- the knowledge sources added first are considered the highest ranked, and their knowledge should be added to the chalkboard immediately.
+
+4. I don't feel that the object, or entire blackboard system needs assumptions or affirmations. Because our calls to the last.fm api are rather binary--they return a bunch of things or they return no things--trimming the list using assumptions and affirmations doesn't seem totally possible. 
+
+For example, it doesn't seem possible to get a new set of recommendations if a song has been rejected, ie, (as far as I can tell) there's no way to ask last.fm for a set of similar songs to "Get Back" that doesn't include the 'graph' with 'Let It Be'. Rather, last.fm returns one list of similar songs for a given input song.
+
+5. All knowledge sources are dependent on last.fm network client functionality. Simply put, if the app can't reach the last.fm server, it can't give the user a recommendation.
+
+Part 2
+
+1. I differentiate with my final knowledge source, which I implemented in part 3. It veers away from the documented requirements slightly, but I feel it does so in a useful way. Each of my knowledge sources adds duplicate values to the solutions pool as they arrive--songs inserted into the solutions pool aren't checked if they're duplicates. 
+
+This enables my final knowledge source, an aggregator, to return the track recommeneded by the most knowledge sources throughout the course of the blackboard process. To me, this convergence of evidence seems to represent the best possible song choice.
+
+I implemented my playcount knowledge source with this idea in mind, as it adds an extra copy of it's recommendation to the solutions pool, rather than submitting the "final" recommendation. An extra instance of a song helps a given song's chances considerably.
+
+One downside of this aggregator knowledge source is that it makes having a constant number of songs in the solutions pool impossible -- in fact, the aggregator knowledge source relies on this variability to produce contribute to the blackboard process. 
+
+2.The user has always been a knowledge source, and is implemented as such. It is unique, however, in that it always goes first. The user's input shapes the blackboard ouput more significantly than any other knowledge source.
+
+3. I would argue that these two goals are actually one--I do not want my application to recommend a track that the user will not like. Regardless, the short-term pieces are the actions of each knowledge source, whereas long-term storage of rejections helps find a song that the user will like (the rejections ensure we don't recommend a song the user DOES NOT like). Still, as I mentioned above, the splicing the two goals seems trivially, as these processes are intimately wound--recommendations from single knowledge sources are not added to the solutions pool if they're on the rejections list, etc.
+
+The two most powerful knowledge sources are the beginning and end--the User and the aggregator. Both (can) affect the entire process of a recommendation, whereas the middle two knowledge sources are one-off processes.
+
+Part 3
+
+Question 3.
+While I feel my program works significantly better with more than one knowledge source, I'm not sure if a single user will perceive the differences without having used both possibilities. Hopefully, my knowledge sources lead to better recommendations, and ultimately a loyal fan of my service. 

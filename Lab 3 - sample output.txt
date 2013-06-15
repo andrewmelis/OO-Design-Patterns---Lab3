@@ -1,0 +1,142 @@
+andrewmelis$ ruby runner.rb
+lastfm client: #<Lastfm:0x007f980b527ad8>
+token url, hit enter when authenticated:
+http://www.last.fm/api/auth/?api_key=5f376ba66130fc50ab78ff155b7430a7&token=6adef05a4f6eff72f90521a02dfd1895
+
+session: 425636b4116f23d67289c1a272c864b8
+#<User:0x007f980b565180>
+enter an artist and a track, comma separated
+like this: the beatles, get back
+herbie hancock, chameleon
+you entered herbie hancock, chameleon
+#<SimilarTrack:0x007f980b565130>
+
+
+
+retrieving recommendation, please wait...
+
+
+
+#<SimilarArtists:0x007f980b5650e0>
+
+retrieving similar artists, please wait...
+#<PlayCount:0x007f980b565090>
+
+retrieving song play counts, please wait...
+#<Aggregator:0x007f980b565040>
+
+
+
+try this one: Search For Peace by McCoy Tyner
+type no and hit enter if you'd like another recommendation
+no
+#<User:0x007f980b565180>
+#<SimilarTrack:0x007f980b565130>
+
+
+
+retrieving recommendation, please wait...
+
+
+
+#<SimilarArtists:0x007f980b5650e0>
+
+retrieving similar artists, please wait...
+#<PlayCount:0x007f980b565090>
+
+retrieving song play counts, please wait...
+#<Aggregator:0x007f980b565040>
+
+
+
+try this one: Spain by Chick Corea
+type no and hit enter if you'd like another recommendation
+no
+#<User:0x007f980b565180>
+#<SimilarTrack:0x007f980b565130>
+
+
+
+retrieving recommendation, please wait...
+
+
+
+#<SimilarArtists:0x007f980b5650e0>
+
+retrieving similar artists, please wait...
+#<PlayCount:0x007f980b565090>
+
+retrieving song play counts, please wait...
+#<Aggregator:0x007f980b565040>
+
+
+
+try this one: Footprints by Wayne Shorter
+type no and hit enter if you'd like another recommendation
+no
+#<User:0x007f980b565180>
+#<SimilarTrack:0x007f980b565130>
+
+
+
+retrieving recommendation, please wait...
+
+
+
+#<SimilarArtists:0x007f980b5650e0>
+
+retrieving similar artists, please wait...
+#<PlayCount:0x007f980b565090>
+
+retrieving song play counts, please wait...
+#<Aggregator:0x007f980b565040>
+
+
+
+try this one: Also Sprach Zarathustra by Deodato
+type no and hit enter if you'd like another recommendation
+no
+#<User:0x007f980b565180>
+#<SimilarTrack:0x007f980b565130>
+
+
+
+retrieving recommendation, please wait...
+
+
+
+#<SimilarArtists:0x007f980b5650e0>
+
+retrieving similar artists, please wait...
+#<PlayCount:0x007f980b565090>
+
+retrieving song play counts, please wait...
+#<Aggregator:0x007f980b565040>
+
+
+
+try this one: Birdland by Weather Report
+type no and hit enter if you'd like another recommendation
+no
+#<User:0x007f980b565180>
+#<SimilarTrack:0x007f980b565130>
+
+
+
+retrieving recommendation, please wait...
+
+
+
+#<SimilarArtists:0x007f980b5650e0>
+
+retrieving similar artists, please wait...
+#<PlayCount:0x007f980b565090>
+
+retrieving song play counts, please wait...
+#<Aggregator:0x007f980b565040>
+
+
+
+try this one: Come On, Come Over by Jaco Pastorius
+type no and hit enter if you'd like another recommendation
+yes
