@@ -62,5 +62,5 @@ class UI
 
 end
 
-ui = UI.new
-ui.main_loop
+# ui = UI.new
+# ui.main_loop

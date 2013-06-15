@@ -5,13 +5,16 @@ require 'lastfm'
 #make this a blackboard object?
 class Authenticator
   attr_reader :api_key, :secret_key 
-  attr_accessor :client
+  attr_accessor :client, :references
 
-  def initialize
+  def initialize(blackboard)
     @api_key = "5f376ba66130fc50ab78ff155b7430a7"
     @secret_key = "92b90e576e718e74bd2725a559ea4a71"
+    @references = Array.new
     get_client
     get_new_token
+    blackboard.control_data<<(self)
+    # notify(true)
   end
 
   def get_client
@@ -30,9 +33,14 @@ class Authenticator
     puts "session: #{@client.session}"
   end
 
+  #dependent method
+  def notify(client_status)
+    references.each do |k|
+      k.canConnect = client_status
+    end
+  end
+
 end
-
-
 
 
 

@@ -14,12 +14,16 @@ class Controller
     @knowledge_sources.each do |ks|
       next_source (ks)
     end
+    @blackboard.conclusion
   end
 
   def next_source(ks)
-    ks.exec_condition
-  end
+    puts ks
+    if ks.exec_condition != false
+      ks.exec_action          #fix this for priority
+      ks.update(@blackboard)
+    end
 
-  
+  end
 
 end
