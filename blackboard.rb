@@ -1,13 +1,13 @@
 
 
 class Blackboard
-    #singleton?
 
-    attr_accessor :solutions, :control_data
+    attr_accessor :solutions, :control_data, :rejections
 
     def initialize
       @solutions = Array.new
       @control_data = Array.new
+      @rejections = Array.new
     end
 
     #control_data[0][0] = Authenitcator
@@ -19,15 +19,21 @@ class Blackboard
     end
 
     def update
-
+      #stuff
     end
 
     def conclusion
-      # freq = @solutions.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-      # rec = @solutions.sort_by { |v| freq[v] }.last
       rec = solutions[0]
       #gets most commonly recommended song
       puts "\n\n\ntry this one: #{rec['name']} by #{rec['artist']['name']}"
+      puts "type no and hit enter if you'd like another recommendation"
+      return rec
     end
+
+    def rejection(rec)
+      @rejections<<(rec)
+      @solutions.keep_if{|i| i!=rec}
+    end
+
 
   end

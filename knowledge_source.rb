@@ -2,11 +2,11 @@
 
 class KnowledgeSource
 
-  attr_accessor :recommendations, :rejections, :priority, :controller, :canConnect
+  attr_accessor :recommendations, :priority, :controller, :canConnect
 
   def initialize(controller)
     @recommendations = Array.new
-    @rejections = Array.new
+    
     @controller = controller
     @canConnect = false;
     controller.knowledge_sources<<(self)
@@ -38,7 +38,7 @@ class SimilarTrack < KnowledgeSource
 
   # end
 
-  def exec_condition()
+  def exec_condition
     #if blackboard has no client, have nothing to add
     if canConnect==false
       return false
@@ -58,7 +58,10 @@ class SimilarTrack < KnowledgeSource
 
   def update(blackboard)
     #slice! deletes items in range from recommendnations, so no duplicates later
-    blackboard.solutions = blackboard.solutions + @recommendations.slice!(0..5)
+    if !blackboard.rejections.empty?
+      @recommendations = @recommendations - blackboard.rejections
+    end
+    blackboard.solutions = blackboard.solutions + @recommendations.slice!(0..10)
   end
 
   def retrieve_similar()
@@ -80,7 +83,7 @@ end
 
 class PlayCount < KnowledgeSource
 
-  def exec_condition()
+  def exec_condition
     #if blackboard has no client, have nothing to add
     if canConnect==false
       return false
@@ -98,6 +101,7 @@ class PlayCount < KnowledgeSource
 
   def update(blackboard)
     #put an extra copy of this similar track in front
+    @recommendations = @recommendations - blackboard.rejections
     blackboard.solutions.insert(0,@recommendations[0])
   end
 
@@ -119,7 +123,7 @@ class PlayCount < KnowledgeSource
 
     @controller.blackboard.solutions.each do |s|
 
-      cur = @controller.blackboard.inspect[0][0].client.track.get_info(:artist => s['artist']['name'], :track => s['name'])
+      cur = @controller.blackboard.inspect[0][0].client.track.get_info(:artist => s['artist']['name'], :track => s['name'], :autocorrect => 1)
       cur_count = cur['playcount'].to_i
 
       diff = (input_count - cur_count).abs
@@ -132,14 +136,14 @@ class PlayCount < KnowledgeSource
     end
 
     @recommendations<<(most_similar_track)
-    
+
   end
 
 end
 
 
 class  SimilarArtists < KnowledgeSource
-  def exec_condition()
+  def exec_condition
     #if blackboard has no client, have nothing to add
     if canConnect==false
       return false
@@ -158,7 +162,8 @@ class  SimilarArtists < KnowledgeSource
   end
 
   def update(blackboard)
-    #slice! deletes items in range from recommendnations, so no duplicates later
+    #slice! deletes items in range from recommendations, so no duplicates later
+    @recommendations = @recommendations - blackboard.rejections
     blackboard.solutions = blackboard.solutions + @recommendations
   end
 
@@ -177,6 +182,29 @@ class  SimilarArtists < KnowledgeSource
   end
 
 end
+
+#provides final recommendation
+class Aggregator< KnowledgeSource
+
+  def exec_condition
+    true
+  end
+
+  def exec_action
+      freq = @controller.blackboard.solutions.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+      rec = @controller.blackboard.solutions.sort_by { |v| freq[v] }.last
+  end
+
+  def update(blackboard)
+    #inserts copy of most frequently recommended song at start of array
+    blackboard.solutions.insert(0,exec_action)
+  end
+
+
+
+
+end
+
 
 
 #user input is really a knowledge source

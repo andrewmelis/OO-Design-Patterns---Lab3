@@ -10,5 +10,6 @@ user = User.new(controller)
 similar_track = SimilarTrack.new(controller)
 similar_artist = SimilarArtists.new(controller)
 play_count = PlayCount.new(controller)
+aggregator = Aggregator.new(controller)
 
 controller.loop
